@@ -8,35 +8,35 @@ module alu (
 );
   always @(posedge clk) begin
     case (funct3)
-      3'b000: begin // add & sub
+      3'b000: begin // ADDI & SUB
         n <= mod ? a - b : a + b; 
       end
 
-      3'b001: begin // sll
-        n <= a << b;
+      3'b001: begin // SLL
+        n <= a << b[4:0];
       end
 
-      3'b010: begin // slt. Not done
-        n <= a < b ? 1 : 0;
+      3'b010: begin // SLT.
+        n <= {31'b0, $signed(a) < $signed(b)};
       end
 
-      3'b011: begin // sltu. Not done
-      
+      3'b011: begin // SLTU
+        n <= {31'b0, a < b};
       end
 
-      3'b100: begin // xor
+      3'b100: begin // XOR
         n <= a ^ b;
       end
 
-      3'b101: begin // srl & sra
-      n <= mod ? a >> b :  a >>> b
+      3'b101: begin // SRL & SRA
+      n <= mod ? (a >>> b[4:0]) : (a >> b[4:0]);
       end
       
-      3'b110: begin // or
+      3'b110: begin // OR
         n <= a | b;
       end
 
-      3'b111: begin // and
+      3'b111: begin // AND
         n <= a & b;
       end
 
@@ -59,28 +59,28 @@ module cond (
   always @(posedge clk) begin
     case (con)
 
-      3'b000: begin // beq
-        n <= a == b 
+      3'b000: begin // BEQ
+        n <= a == b;
       end
 
-      3'b001: begin // bne
-        n <= a != b
+      3'b001: begin // BNE
+        n <= a != b;
       end
 
-      3'b100: begin // blt
-        n <= a < b
+      3'b100: begin // BLT
+        n <= $signed(a) < $signed(b);
       end
 
-      3'b101: begin // bge
-        n <= a >=b
+      3'b101: begin // BEG
+        n <= $signed(a) >= $signed(b);
       end
 
-      3'b110: begin // bltu. Needs to be zero extended
-        n <= a < b
+      3'b110: begin // BLTU.
+        n <= a < b;
       end
 
-      3'b111: begin // bgeu. Needs to be zero extended
-        n <= a >= b
+      3'b111: begin // BGEU.
+        n <= a >= b;
       end
       default:
     endcase
