@@ -53,34 +53,34 @@ module cond (
   input clk,
   input [31:0] a,
   input [31:0] b,
-  input [1:0] con,
+  input [2:0] funct3,
   output reg n,
 );
   always @(posedge clk) begin
     case (con)
 
-      2'b00: begin // beq
+      3'b000: begin // beq
         n <= a == b 
       end
 
-      2'b01: begin // bne
+      3'b001: begin // bne
         n <= a != b
       end
 
-      2'b10: begin // blt
+      3'b100: begin // blt
         n <= a < b
       end
 
-      2'b11: begin // bge
+      3'b101: begin // bge
         n <= a >=b
       end
 
-      3'b100: begin // bltu. Needs to be zero extended
+      3'b110: begin // bltu. Needs to be zero extended
         n <= a < b
       end
 
-      3'b101: begin // bgeu. Needs to be zero extended
-        n <= a >=b
+      3'b111: begin // bgeu. Needs to be zero extended
+        n <= a >= b
       end
       default:
     endcase
