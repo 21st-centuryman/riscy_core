@@ -3,39 +3,41 @@ module alu (
   input mod,
   input [31:0] a,
   input [31:0] b,
-  input [2:0] con,
+  input [2:0] funct3,
   output [31:0] n,
 );
   always @(posedge clk) begin
-    case (con)
-      3'b000: begin // add, sub, addi, depending on the modification
+    case (funct3)
+      3'b000: begin // add & sub
         n <= mod ? a - b : a + b; 
       end
 
-      3'b001: begin // and
-        n <= a & b;
+      3'b001: begin // sll
+        n <= a << b;
       end
 
-      3'b010: begin // or
-        n <= a | b;
-      end
-
-      3'b011: begin // xor
-        n <= a ^ b;
-      end
-
-      3'b100: begin // slt, not correct need to update
+      3'b010: begin // slt. Not done
         n <= a < b ? 1 : 0;
       end
 
-      3'b101: begin
-        
+      3'b011: begin // sltu. Not done
+      
       end
 
-      3'b110: begin 
+      3'b100: begin // xor
+        n <= a ^ b;
+      end
+
+      3'b101: begin // srl & sra
+      n <= mod ? a >> b :  a >>> b
       end
       
-      3'b111: begin 
+      3'b110: begin // or
+        n <= a | b;
+      end
+
+      3'b111: begin // and
+        n <= a & b;
       end
 
       default: 
@@ -73,17 +75,16 @@ module cond (
         n <= a >=b
       end
 
-      /*
-      Future additions:
-
-      3'b100: begin // bltu
+      3'b100: begin // bltu. Needs to be zero extended
+        n <= a < b
       end
 
-      3'b101: begin // bgeu
+      3'b101: begin // bgeu. Needs to be zero extended
+        n <= a >=b
       end
-      */
       default:
     endcase
+    
     
   end
   
