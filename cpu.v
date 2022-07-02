@@ -91,23 +91,60 @@ module cond (
 endmodule // cond
 
 
-
+// ram module
 module ram(
-  parameters
+  input clk, 
 ) (
-  ports
+  always @(posedge clk) begin
+    
+  end
 );
   
 endmodule // ram
 
-
-
-
 //Very much a RISC-V core
 module verycore ( 
-  parameters
+  input clk,
+  output reg [31:0] pc
+
 ) (
-  ports
+
+  // declaring values for alu and cond
+  // alu
+  reg[2:0] alu_funct;
+  reg[31:0] alu_a;
+  reg[31:0] alu_b;
+  reg alu_mod;
+  reg alu_n;
+
+  // cond
+  reg[2:0] cond_funct;
+  reg[31:0] cond_a;
+  reg[31:0] cond_b;
+  reg cond_n;
+
+
+
+  alu a (
+    .clk (clk),
+    .funct3 (alu_funct),
+    .a (alu_a),
+    .b (alu_b),
+    .mod (alu_mod),
+    .n (alu_n)
+  );
+
+  cond c (
+    .clk (clk),
+    .funct3 (cond_funct),
+    .a (cond_a),
+    .b (cond_b),
+    .n (cond_n)
+  );
+
+    always @(posedge clk) begin
+    
+  end
 );
   
 endmodule // verycore
