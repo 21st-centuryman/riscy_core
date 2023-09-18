@@ -1,0 +1,109 @@
+/*
+
+An ALU based on the risc v refrence sheet. 
+base = rv32i
+mul = rv32m
+atom = rv32a
+
+Notes:
+  * I am using hex values to be consistent with the refrence sheet in this repo.
+  * I need to implement flags
+  * ALso I need to finish this lol
+*/
+
+
+module alu (
+  input clk,
+  input[3:0] funct3
+  input[6:0] funct7
+  input[6:0] OP
+);
+
+endmodule
+
+/* --------------------------------- R TYPE -------------------------------- */
+module r_type (
+  input[3:0] funct3,
+  input[6:0] OP, funct7,
+  input[32:0] rs1, rs2
+
+  output [31:0] rd
+);
+case (funct3)
+  3'h0: begin: ADD/SUB/MUL
+    case (funct7)
+      6'h00: begin : ADD
+        rd = rs1 + rs2;
+      end
+      6'h20: begin : SUB
+        rd = rs1 - rs2
+      end
+      6'h00: begin : MUL
+        
+      end
+    endcase
+    rd <= (funct7 != 6'h20) ? rs1 + rs2 : rs1 - rs2;
+  end
+  3'h1: begin: SLL/MULH
+    rd <= rs1 << rs2;
+  end
+  3'h2: begin: SLT/MUILSU
+    rd <= (rs1 < rs2);
+  end
+  3'h3: begin: SLTU/MULU
+    rd <= (rs1 <0 rs2);
+  end
+  3'h4: begin: XOR/DIV
+    rd <= rs1 ^ rs2;
+  end
+  3'h5: begin: SRL/SRA/DIVU
+    rd <= (funct7 != 6'h20) ? rs1 >> rs2 : rs1 >>> rs2;
+  end
+  3'h6: begin: OR/REM
+    rd <= rs1 | rs2;
+  end
+  3'h7: begin: AND/REMU
+    rd <= rs1 & rs2;
+  end
+endcase
+endmodule
+
+module base_alui (
+  input[32:0] rs1
+  input[19:0] imm
+  input[3:0] funct3
+  /* --------------------------------- Outputs -------------------------------- */
+  output [31:0 ] rd
+);
+case (funct3)
+  3'h0: begin: ADDI
+    rd <= rs1 + imm
+  end
+  3'h1: begin: SLLI
+  end
+  3'h2: begin: SLTI
+  end
+  3'h3: begin: SLTIU
+  end
+  3'h4: begin: XORI
+  end
+  3'h5: begin: SRLI/SRAI
+  end
+  3'h6: begin: ORI
+  end
+  3'h7: begin: ANDI
+  end
+endcase
+endmodule
+
+
+
+/*
+---------------
+EXTENSIONS BABY
+---------------
+*/
+
+// RV32M Multiply Extension
+// RV32A Atomic Extension
+// RV32F / D Floating-Point Extensions 
