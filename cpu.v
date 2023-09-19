@@ -1,3 +1,6 @@
+/*
+THIS IS ONLY USED FOR REFRENCE I DO NOt USE THIS ANYMORE
+*/
 module alu (
   input clk,
   input mod,
