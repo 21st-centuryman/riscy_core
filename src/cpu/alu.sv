@@ -38,8 +38,8 @@ case (funct3)
 
   3'h2: // SLT | MUILSU
       case (funct7)
-      6'h00: rd <= (rs1 <  rs2);                           // SLT
-      6'h01: rd <= (($signed(rs1) * $signed(rs2)) >> 32);  // MULSU
+      6'h00: rd <= (rs1 <  rs2);         // SLT
+      6'h01: rd <= ((rs1 * rs2) >> 32);  // MULSU
     endcase
 
   3'h3: // SLTU MULU
