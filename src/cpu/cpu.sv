@@ -1,16 +1,60 @@
-/*
 
-An ALU based on the risc v refrence sheet.
-base = rv32i
-mul = rv32m
-atom = rv32a
+module cpu ():
+  logic [31:0] instr;
+  logic [31:0] in1, in2;
+  logic [31:0] out1;
 
-Notes:
-  * I am using hex values to be consistent with the refrence sheet in this repo.
-  * I need to implement flags
-  * ALso I need to finish this lol
-  * I need to implement atomic extension RV32A
-*/
+  alu alu(
+    .funct3(instr[14:11]),
+    .funct7(instr[31:26]),
+    .rs1(in1),
+    .rs2(in2),
+    .rd(out1)
+    )
+
+  assign logic[6:0] opcode = instr[6:0];
+  initial begin
+    
+  end
+endmodule
+
+
+/* ------------------------------ CONTROLLER ------------------------------ */
+module controller (
+  ports
+);
+  
+endmodule
+
+
+/* ------------------------------ CONDITIONER ------------------------------ */
+module branch (
+  input clk,
+  input[31:0] pc,imm,
+  input[31:0] rs1, rs2,
+  input[3:0] funct3,
+
+  output [31:0] pc_out
+);
+  always @(posedge clk) begin
+    case (funct3)
+      3'h0: pc_out = (rs1 == rs2) ? pc + imm : pc + 4; // beq
+      3'h1: pc_out = (rs1 != rs2) ? pc + imm : pc + 4; // bne
+      3'h4: pc_out = (rs1 < rs2) ? pc + imm : pc + 4; // blt
+      3'h5: pc_out = (rs1 >= rs2) ? pc + imm : pc + 4; // bge
+      3'h6: pc_out = (rs1 < rs2) ? pc + imm : pc + 4; // bltu
+      3'h7: pc_out = (rs1 >= rs2) ? pc + imm : pc + 4; // bgeu
+    endcase
+  end
+endmodule
+
+module jump (
+  input [31:0] pc,
+  input [19:0] imm,
+  output [31:0] rd
+);
+  assign rd = pc + 4 + {{12{imm[19]}}, imm, 1'b0}; // jal
+endmodule
 
 
 /* ----------------------------------- ALU --------------------------------- */
