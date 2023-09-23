@@ -1,18 +1,9 @@
 
 module cpu ():
+  logic clk;
+  logic [31:0] pc;
   logic [31:0] instr;
-  logic [31:0] in1, in2;
-  logic [31:0] out1;
 
-  alu alu(
-    .funct3(instr[14:11]),
-    .funct7(instr[31:26]),
-    .rs1(in1),
-    .rs2(in2),
-    .rd(out1)
-    )
-
-  assign logic[6:0] opcode = instr[6:0];
   initial begin
     
   end
@@ -21,9 +12,39 @@ endmodule
 
 /* ------------------------------ CONTROLLER ------------------------------ */
 module controller (
-  ports
+  input clk,
+  input[31:0] instr,
+  output [31:0] out,pc
 );
-  
+  always_ff @(posedge clk) begin : controller
+    case (instr[6:0])
+      7'b0110011: begin
+        // Fetch the value of rs1, rs2, and the register we need to .rd
+        alu #(.funct3(instr[14:12]), .funct7(instr[31:25]), .rs1(rs1), .rs2(rs2)) .rd(out);
+        pc += 4;
+      end
+      7'b0010011: begin
+        // Fetch the value of rs1 and register rd
+        assign logic [6:0] f7 = (instr[31:25] == 6'h00 || instr[31:25] == 6'h20) ?
+          instr[31:25] : 6'h00;
+        alu #(.funct3(instr[14:12]), .funct7(f7), .rs1(rs1), .rs2({21'b0, instr[31:19])}) .rd(out);
+        pc += 4;
+      end
+      7'b0000011: begin
+        // Load type
+      end
+      7'b0100011: begin
+        // S type
+      end
+      7'b1100011: begin
+        // B type
+      end
+      7'b1101111: begin
+       jal #(.pc(pc), .imm(instr[31:12]), .pc_out(pc));
+      end      
+      7'01100111: // jalr
+    endcase
+  end
 endmodule
 
 
@@ -48,7 +69,7 @@ module branch (
   end
 endmodule
 
-module jump (
+module jal (
   input [31:0] pc,
   input [19:0] imm,
   output [31:0] rd
