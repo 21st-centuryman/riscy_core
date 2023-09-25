@@ -27,8 +27,9 @@ module controller (
         // Fetch the value of rs1 and register rd
         assign logic [6:0] f7 = (instr[31:25] == 6'h00 || instr[31:25] == 6'h20) ?
           instr[31:25] : 6'h00;
-        alu #(.funct3(instr[14:12]), .funct7(f7), .rs1(rs1), .rs2({21'b0, instr[31:19])}) .rd(out);
-        pc += 4;
+        assign logic [31:0] pc_out;
+        alu #(.funct3(instr[14:12]), .funct7(f7), .rs1(rs1), .rs2({21'b0, instr[31:19])}) .rd(pc_out);
+        pc <= pc_out;
       end
       7'b0000011: begin
         // Load type
