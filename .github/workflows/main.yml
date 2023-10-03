@@ -21,9 +21,7 @@ jobs:
       - name: ALU
         run: |
           iverilog -o alu -g2005-sv src/alu.sv tests/alu_tb.sv
-          if ! vvp alu; then
-            exit 1  # Terminate the job if vvp alu fails
-          fi
+          vvp alu
 
       - name: Controller
         run: |
