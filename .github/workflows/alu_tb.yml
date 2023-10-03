@@ -1,0 +1,24 @@
+name: ALU
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog
+
+      - name: Run Script
+        run: |
+          iverilog -o run -g2005-sv src/alu_tb tests/alu_tb.sv
+          vvp alu_tb
