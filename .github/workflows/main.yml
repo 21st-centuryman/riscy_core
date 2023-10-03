@@ -22,3 +22,23 @@ jobs:
         run: |
           iverilog -o run -g2005-sv src/alu.sv tests/alu_tb.sv
           vvp alu_tb
+
+      - name: Controller
+        run: |
+          iverilog -o run -g2005-sv src/ctrl.sv tests/ctrl_tb.sv
+          vvp ctrl_tb
+
+      - name: Register file
+        run: |
+          iverilog -o run -g2005-sv src/rf.sv tests/rf_tb.sv
+          vvp rf_tb
+
+      - name: ram
+        run: |
+          iverilog -o run -g2005-sv src/ram.sv tests/ram_tb.sv
+          vvp ram_tb
+
+      - name: cpu
+        run: |
+          iverilog -o run -g2005-sv src/cpu.sv tests/cpu_tb.sv
+          vvp cpu_tb
