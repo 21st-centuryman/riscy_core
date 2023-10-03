@@ -20,5 +20,5 @@ jobs:
 
       - name: Run Script
         run: |
-          iverilog -o run -g2005-sv src/alu_tb tests/alu_tb.sv
+          iverilog -o run -g2005-sv src/alu.sv tests/alu_tb.sv
           vvp alu_tb
