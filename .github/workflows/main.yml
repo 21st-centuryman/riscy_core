@@ -21,7 +21,8 @@ jobs:
       - name: ALU
         run: |
           iverilog -o alu -g2005-sv src/alu.sv tests/alu_tb.sv
-          vvp alu || exit 1
+          vvp alu
+          [ -f sim.vcd ] || exit 1 # If sim.vcd is not found the test failed
 
       - name: Controller
         run: |

@@ -12,7 +12,7 @@ module alu_tb();
   end
 
   initial begin
-      $dumpfile("sim.vcd"); 
+      $dumpfile("sim.vcd");
       $dumpvars(0, a, b, out, z, ctrl);
       clk = 0;
       #1
