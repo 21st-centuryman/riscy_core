@@ -18,11 +18,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y iverilog
 
+  test: 
+    runs-on: ubuntu-latest
+    steps:
       - name: ALU
         run: |
           iverilog -o alu -g2005-sv src/alu.sv tests/alu_tb.sv
           vvp alu
-          [ -f sim.vcd ] || exit 1 # If sim.vcd is not found the test failed
+          if [ ! -f sim.vcd ]; then 
+            exit 1
+          fi
+
 
       - name: Controller
         run: |
