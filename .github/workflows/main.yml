@@ -21,7 +21,7 @@ jobs:
       - name: ALU
         run: |
           iverilog -o alu -g2005-sv src/alu.sv tests/alu_tb.sv
-          vvp alu
+          vvp alu || exit 1
 
       - name: Controller
         run: |
