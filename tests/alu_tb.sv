@@ -20,37 +20,35 @@ module alu_tb();
       ctrl = 3'b000; // add
       a = 20; b = 30;
       #1;
-      assert(out == (a + b)) else begin $error("ADD: is broken"); $finish(1); end
+      assert(out == (a + b)) else $error("ADD: is broken");
 
       #1
       ctrl = 3'b001; // sub
       a = 8; b = 3;
       #1;
-      assert(out == (a + b)) else begin $error("SUB: is broken"); $finish(1); end
-
+      assert(out == (a + b)) else $error("SUB: is broken");
       #1
       ctrl = 3'b010; // and
       a = 20; b = 30;
       #1;
-      assert(out == (a & b)) else begin $error("AND: is broken"); $finish(1); end
-
+      assert(out == (a & b)) else $error("AND: is broken");
       #1
       ctrl = 3'b011; // or
       a = 20; b = 30;
       #1;
-      assert(out == a | b) else begin $error("OR: is broken"); $finish(1); end
+      assert(out == a | b) else $error("OR: is broken");
  
       #1
       ctrl = 3'b101; // slt
       a = 20; b = 30;
       #1;
-      assert(out == (a < b)) else begin $error("SLT: is broken");$finish(1); end
+      assert(out == (a < b)) else $error("SLT: is broken");
 
       #1
       ctrl = 3'b001; // slt
       a = 20; b = 20;
       #1;
-      assert(z) else begin $error("Zero flag is broken"); $finish(1); end
+      assert(z) else $error("Zero flag is broken");
 
      $finish(0);
     end
