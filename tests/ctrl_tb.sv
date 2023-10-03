@@ -35,5 +35,9 @@ module alu_tb();
       ctrl = 3'b101; // slt
       a = 20; b = 30;
       assert(out = (a < b)) else $display("SLT: is broken");
+
+      #1;
+
+      $finish;
     end
 endmodule
