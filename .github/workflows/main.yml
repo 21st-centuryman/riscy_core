@@ -20,25 +20,25 @@ jobs:
 
       - name: ALU
         run: |
-          iverilog -o run -g2005-sv src/alu.sv tests/alu_tb.sv
-          vvp alu_tb
+          iverilog -o alu -g2005-sv src/alu.sv tests/alu_tb.sv
+          vvp alu
 
       - name: Controller
         run: |
-          iverilog -o run -g2005-sv src/ctrl.sv tests/ctrl_tb.sv
-          vvp ctrl_tb
+          iverilog -o ctrl -g2005-sv src/ctrl.sv tests/ctrl_tb.sv
+          vvp ctrl
 
       - name: Register file
         run: |
-          iverilog -o run -g2005-sv src/rf.sv tests/rf_tb.sv
-          vvp rf_tb
+          iverilog -o rf -g2005-sv src/rf.sv tests/rf_tb.sv
+          vvp rf
 
       - name: ram
         run: |
-          iverilog -o run -g2005-sv src/ram.sv tests/ram_tb.sv
-          vvp ram_tb
+          iverilog -o ram -g2005-sv src/ram.sv tests/ram_tb.sv
+          vvp ram
 
       - name: cpu
         run: |
-          iverilog -o run -g2005-sv src/cpu.sv tests/cpu_tb.sv
-          vvp cpu_tb
+          iverilog -o cpu -g2005-sv src/cpu.sv tests/cpu_tb.sv
+          vvp cpu
