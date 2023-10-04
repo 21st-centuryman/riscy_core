@@ -27,19 +27,19 @@ jobs:
       - name: Controller
         run: |
           iverilog -o ctrl -g2005-sv src/ctrl.sv tests/ctrl_tb.sv
-          vvp ctrl
+          vvp -N ctrl
 
       - name: Register file
         run: |
           iverilog -o rf -g2005-sv src/rf.sv tests/rf_tb.sv
-          vvp rf
+          vvp -N rf
 
       - name: ram
         run: |
           iverilog -o ram -g2005-sv src/ram.sv tests/ram_tb.sv
-          vvp ram
+          vvp -N ram
 
       - name: cpu
         run: |
           iverilog -o cpu -g2005-sv src/cpu.sv tests/cpu_tb.sv
-          vvp cpu
+          vvp -N cpu
