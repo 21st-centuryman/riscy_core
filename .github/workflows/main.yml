@@ -19,13 +19,11 @@ jobs:
           sudo apt-get install -y iverilog
 
       - name: Test ALU
-        continue-on-error: true
         run: |
           iverilog -o alu -g2005-sv src/alu.sv tests/alu_tb.sv
           vvp -N alu
 
       - name: Test Controller
-        continue-on-error: true
         run: |
           iverilog -o ctrl -g2005-sv src/ctrl.sv tests/ctrl_tb.sv
           vvp -N ctrl
