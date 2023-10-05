@@ -5,6 +5,8 @@ module alu_tb();
   logic [2:0] ctrl;
   logic z, clk;
 
+  reg status;
+
   alu alu(.clk(clk), .rs1(a), .rs2(b), .rd(out), .z(z), .ctrl(ctrl)); 
 
   always begin
@@ -14,44 +16,63 @@ module alu_tb();
   initial begin
       $dumpfile("sim.vcd");
       $dumpvars(0, a, b, out, z, ctrl);
+      status = 0;
       clk = 0;
       #1
 
       ctrl = 3'b000; // add
       a = 20; b = 30;
       #1;
-      assert(out == (a + b)) else begin $error("ADD: is broken"); $stop(1); end
+      assert(out == (a + b)) else begin 
+        $error("ADD: is broken"); 
+        status = 1;
+      end
 
       #1
       ctrl = 3'b001; // sub
       a = 8; b = 3;
       #1;
-      assert(out == (a - b)) else begin $error("SUB: is broken"); $stop(1); end
+      assert(out == (a - b)) else begin 
+        $error("SUB: is broken"); 
+        status = 1
+      end
+
       #1
       ctrl = 3'b010; // and
       a = 20; b = 30;
       #1;
-      assert(out == (a & b)) else begin $error("AND: is broken"); $stop(1); end
+      assert(out == (a & b)) else begin 
+        $error("AND: is broken"); 
+        status = 1
+      end
 
       #1
       ctrl = 3'b011; // or
       a = 20; b = 30;
       #1;
-      assert(out == a | b) else begin $error("OR: is broken"); $stop(1); end
+      assert(out == a | b) else begin 
+        $error("OR: is broken"); 
+        status = 1
+      end
 
- 
       #1
       ctrl = 3'b101; // slt
       a = 20; b = 30;
       #1;
-      assert(out == (a < b)) else begin $error("SLT: is broken"); $stop(1); end
+      assert(out == (a < b)) else begin 
+        $error("SLT: is broken"); 
+        status = 1
+      end
 
       #1
       ctrl = 3'b001; // slt
       a = 20; b = 20;
       #1;
-      assert(z) else begin $error("Zero flag is broken"); $stop(1); end
+      assert(z) else begin 
+        $error("Zero flag is broken"); 
+        status = 1
+      end
 
-     $finish(0);
+      $stop(status);
     end
 endmodule
