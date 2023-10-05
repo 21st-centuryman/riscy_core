@@ -25,7 +25,7 @@ module alu_tb();
       a = 20; b = 30;
       #1;
       assert(out == (a + b)) else begin 
-        $error("ADD: is broken"); 
+        $error("ADD: is broken");
         status = 1;
       end
 
@@ -33,7 +33,7 @@ module alu_tb();
       ctrl = 3'b001; // sub
       a = 8; b = 3;
       #1;
-      assert(out == (a - b)) else begin 
+      assert(out == (a - b)) else begin
         $error("SUB: is broken");
         status = 1;
       end
@@ -42,8 +42,8 @@ module alu_tb();
       ctrl = 3'b010; // and
       a = 20; b = 30;
       #1;
-      assert(out == (a & b)) else begin 
-        $error("AND: is broken"); 
+      assert(out == (a & b)) else begin
+        $error("AND: is broken");
         status = 1;
       end
 
@@ -74,6 +74,9 @@ module alu_tb();
         status = 1;
       end
 
-      $stop(status);
+      if (status) 
+        $stop(1):
+      else
+        $finish:
     end
 endmodule
