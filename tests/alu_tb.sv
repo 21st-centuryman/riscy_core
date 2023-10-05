@@ -16,9 +16,10 @@ module alu_tb();
   initial begin
       $dumpfile("sim.vcd");
       $dumpvars(0, a, b, out, z, ctrl);
-      status = 0;
       clk = 0;
       #1
+
+      status = 0;
 
       ctrl = 3'b000; // add
       a = 20; b = 30;
@@ -33,8 +34,8 @@ module alu_tb();
       a = 8; b = 3;
       #1;
       assert(out == (a - b)) else begin 
-        $error("SUB: is broken"); 
-        status = 1
+        $error("SUB: is broken");
+        status = 1;
       end
 
       #1
@@ -43,7 +44,7 @@ module alu_tb();
       #1;
       assert(out == (a & b)) else begin 
         $error("AND: is broken"); 
-        status = 1
+        status = 1;
       end
 
       #1
@@ -52,7 +53,7 @@ module alu_tb();
       #1;
       assert(out == a | b) else begin 
         $error("OR: is broken"); 
-        status = 1
+        status = 1;
       end
 
       #1
@@ -61,7 +62,7 @@ module alu_tb();
       #1;
       assert(out == (a < b)) else begin 
         $error("SLT: is broken"); 
-        status = 1
+        status = 1;
       end
 
       #1
@@ -70,7 +71,7 @@ module alu_tb();
       #1;
       assert(z) else begin 
         $error("Zero flag is broken"); 
-        status = 1
+        status = 1;
       end
 
       $stop(status);
