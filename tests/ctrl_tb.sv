@@ -137,10 +137,10 @@ module ctrl_tb();
 
       #1;
 
-      if (status) {
+      if (status) 
         $stop(1);
-      } else {
-        $finish();
-      }
+      else 
+        $finish;
+
     end
 endmodule

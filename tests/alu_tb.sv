@@ -74,9 +74,9 @@ module alu_tb();
         status = 1;
       end
 
-      if (status)
-        $stop(1):
-      else
-        $finish:
+      if (status) 
+        $stop(1);
+      else 
+        $finish;
     end
 endmodule
