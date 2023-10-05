@@ -137,6 +137,9 @@ module ctrl_tb();
 
       #1;
 
-      $stop(status);
+      if (status)
+        $stop(1):
+      else
+        $finish:
     end
 endmodule
