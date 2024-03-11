@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Install Verilator Action
         uses: V0XNIHILI/install-verilator-action@v0.0.2
+      - name: post build
         run: which verilator
 
   test:
