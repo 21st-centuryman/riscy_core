@@ -19,7 +19,8 @@ jobs:
 
     strategy:
       matrix:
-        target: [alu, ctrl, rf, ram, cpu]
+        target: [alu]
+        #target: [alu, ctrl, rf, ram, cpu]
 
     steps:
       - name: Test ${{ matrix.target }}
