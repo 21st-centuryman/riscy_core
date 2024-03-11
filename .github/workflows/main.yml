@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Verilator Sim
         uses: drom/action-verilator@v0.1.11
 
       - name: Test ALU
