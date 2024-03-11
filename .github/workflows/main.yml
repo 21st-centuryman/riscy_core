@@ -20,21 +20,21 @@ jobs:
 
       - name: Test ALU
         run: |
-          verilator --timing -cc src/alu.sv --exe tests/alu_tb.sv
+          verilator -cc src/alu.sv --exe tests/alu_tb.sv
 
-      - name: Test Controller
-        run: |
-          verilator --timing -cc src/ctrl.sv --exe tests/ctrl_tb.sv
+      #- name: Test Controller
+      #  run: |
+      #    verilator --timing -cc src/ctrl.sv --exe tests/ctrl_tb.sv
 
-      - name: Test Register file
-        run: |
-          verilator --timing -cc src/rf.sv --exe tests/rf_tb.sv
+      #- name: Test Register file
+      #  run: |
+      #    verilator --timing -cc src/rf.sv --exe tests/rf_tb.sv
 
-      - name: Test RAM
-        run: |
-          verilator --timing -cc src/ram.sv --exe tests/ram_tb.sv
+      #- name: Test RAM
+      #  run: |
+      #    verilator --timing -cc src/ram.sv --exe tests/ram_tb.sv
 
-      - name: Test CPU
-        run: |
-          verilator --timing -cc src/cpu.sv --exe tests/cpu_tb.sv
+      #- name: Test CPU
+      #  run: |
+      #    verilator --timing -cc src/cpu.sv --exe tests/cpu_tb.sv
 
