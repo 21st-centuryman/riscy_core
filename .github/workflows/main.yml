@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Verilator Sim
-        uses: drom/action-verilator@v0.1.11
+      - name: Install Verilator Action
+        uses: V0XNIHILI/install-verilator-action@v0.0.2
 
       - name: Test ALU
         run: verilator -cc src/alu.sv --exe tests/alu_tb.sv
