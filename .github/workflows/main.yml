@@ -11,9 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
-        uses: v0xnihili/install-verilator-action@main
-        run: verilator --version
+        uses: drom/action-verilator@v0.1.11uses: actions/checkout@v2
 
       - name: Test ALU
         run: verilator -cc src/alu.sv --exe tests/alu_tb.sv
