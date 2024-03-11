@@ -12,56 +12,20 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
-      - name: Build verilator from source
-        run: |
-          sudo apt-get update
-          using: 'composite'
-          steps:
-            # Script based on: https://github.com/verilator/verilator/blob/master/docs/guide/install.rst#id3
-            - name: Install dependencies
-              shell: bash
-              run: |
-                sudo apt-get install git help2man perl python3 make autoconf g++ flex bison ccache
-                # sudo apt-get install libgoogle-perftools-dev numactl perl-doc (gives error when installing 'libgoogle-perftools-dev': https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919)
-                sudo apt-get install libfl2  # Ubuntu only (ignore if gives error)
-                sudo apt-get install libfl-dev  # Ubuntu only (ignore if gives error)
-                # sudo apt-get install zlibc zlib1g zlib1g-dev  # Ubuntu only (ignore if gives error); skipping because it leads to 'Unable to locate package zlibc' error
-            - name: Checkout Verilator
-              shell: bash
-              env:
-                INPUT_VERSION: ${{ inputs.version }}
-              run: |
-                git clone https://github.com/verilator/verilator   # Only first time
-                cd verilator
-                git pull         # Make sure git repository is up-to-date
-                git checkout $INPUT_VERSION
-            - name: Build Verilator
-              shell: bash
-              run: |
-                cd verilator
-                autoconf         # Create ./configure script
-                ./configure      # Configure and create Makefile
-                make -j `nproc`  # Build Verilator itself (if error, try just 'make')
-                sudo make install
+        uses: v0xnihili/install-verilator-action@main
+        run: verilator --version
 
       - name: Test ALU
-        run: |
-          verilator -cc src/alu.sv --exe tests/alu_tb.sv
+        run: verilator -cc src/alu.sv --exe tests/alu_tb.sv
 
       #- name: Test Controller
-      #  run: |
-      #    verilator --timing -cc src/ctrl.sv --exe tests/ctrl_tb.sv
+      #  run: verilator --timing -cc src/ctrl.sv --exe tests/ctrl_tb.sv
 
       #- name: Test Register file
-      #  run: |
-      #    verilator --timing -cc src/rf.sv --exe tests/rf_tb.sv
+      #  run: verilator --timing -cc src/rf.sv --exe tests/rf_tb.sv
 
       #- name: Test RAM
-      #  run: |
-      #    verilator --timing -cc src/ram.sv --exe tests/ram_tb.sv
+      #  run: verilator --timing -cc src/ram.sv --exe tests/ram_tb.sv
 
       #- name: Test CPU
-      #  run: |
-      #    verilator --timing -cc src/cpu.sv --exe tests/cpu_tb.sv
-
+      #  run: verilator --timing -cc src/cpu.sv --exe tests/cpu_tb.sv
