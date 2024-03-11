@@ -20,7 +20,7 @@ jobs:
 
       - name: Test ALU
         run: |
-          verilator -cc alu.sv --exe alu_tb.sv
+          verilator -cc -Isrc -Itests src/alu.sv --exe tests/alu_tb.sv
 
      # - name: Test Controller
      #   run: |
