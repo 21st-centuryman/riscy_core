@@ -26,4 +26,4 @@ jobs:
 
     steps:
       - name: Test ${{ matrix.target }}
-        run: verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
+        run: /usr/local/bin/verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
