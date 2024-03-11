@@ -12,18 +12,20 @@ jobs:
     steps:
       - name: Install Verilator Action
         uses: V0XNIHILI/install-verilator-action@v0.0.2
-      - name: post build
-        run: which verilator
 
-  test:
-    runs-on: ubuntu-latest
-    needs: build
+      - name: Test alu
+        run: |
+          verilator --timing -cc src/alu.sv --exe tests/alu_tb.sv
 
-    strategy:
-      matrix:
-        target: [alu]
-        #target: [alu, ctrl, rf, ram, cpu]
+  #test:
+  #  runs-on: ubuntu-latest
+  #  needs: build
 
-    steps:
-      - name: Test ${{ matrix.target }}
-        run: /usr/local/bin/verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
+  #  strategy:
+  #    matrix:
+  #      target: [alu]
+  #      #target: [alu, ctrl, rf, ram, cpu]
+
+  #  steps:
+  #    - name: Test ${{ matrix.target }}
+  #      run: /usr/local/bin/verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
