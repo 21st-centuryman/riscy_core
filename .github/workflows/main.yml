@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Install Verilator Action
         uses: V0XNIHILI/install-verilator-action@v0.0.2
+        run: which verilator
 
   test:
     runs-on: ubuntu-latest
