@@ -15,7 +15,7 @@ jobs:
 
       - name: Test alu
         run: |
-          verilator --timing -cc src/alu.sv --exe tests/alu_tb.sv
+          verilator --timing -cc -Isrc -Itests src/alu.sv --exe tests/alu_tb.sv
 
   #test:
   #  runs-on: ubuntu-latest
