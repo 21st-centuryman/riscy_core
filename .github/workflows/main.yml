@@ -9,17 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install Verilator Action
-        uses: V0XNIHILI/install-verilator-action@v0.0.2
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-
     strategy:
       matrix:
         target: [alu]
@@ -29,5 +18,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install Verilator Action
+        uses: V0XNIHILI/install-verilator-action@v0.0.2
+
       - name: Test ${{ matrix.target }}
         run: verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
+
+  #test:
+  #  runs-on: ubuntu-latest
+  #  needs: build
+
+  #  strategy:
+  #    matrix:
+  #      target: [alu]
+  #      #target: [alu, ctrl, rf, ram, cpu]
+
+  #  steps:
+  #    - name: Checkout code
+  #      uses: actions/checkout@v3
+
+  #    - name: Test ${{ matrix.target }}
+  #      run: verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
