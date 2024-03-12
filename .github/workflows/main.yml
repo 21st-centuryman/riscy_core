@@ -13,8 +13,11 @@ jobs:
       - name: Install Verilator Action
         uses: V0XNIHILI/install-verilator-action@v0.0.2
 
+      - name: Checkout code
+        use: actions/checkout@v3
+
       - name: Test alu
-        run: verilator --timing -cc -I./src -I./tests ./src/alu.sv --exe ./tests/alu_tb.sv
+        run: verilator --timing -cc ./src/alu.sv --exe ./tests/alu_tb.sv
 
   #test:
   #  runs-on: ubuntu-latest
@@ -27,4 +30,4 @@ jobs:
 
   #  steps:
   #    - name: Test ${{ matrix.target }}
-  #      run: /usr/local/bin/verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
+  #      run: verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
