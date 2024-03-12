@@ -14,7 +14,7 @@ jobs:
         uses: V0XNIHILI/install-verilator-action@v0.0.2
 
       - name: Checkout code
-        use: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Test alu
         run: verilator --timing -cc ./src/alu.sv --exe ./tests/alu_tb.sv
