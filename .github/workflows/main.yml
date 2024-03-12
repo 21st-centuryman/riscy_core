@@ -11,8 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        target: [alu]
-        #target: [alu, ctrl, rf, ram, cpu]
+        target: [alu, ctrl, rf, ram, cpu]
 
     steps:
       - name: Checkout code
