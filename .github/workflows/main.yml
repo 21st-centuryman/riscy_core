@@ -14,8 +14,7 @@ jobs:
         uses: V0XNIHILI/install-verilator-action@v0.0.2
 
       - name: Test alu
-        run: |
-          verilator --timing -cc -Isrc -Itests src/alu.sv --exe tests/alu_tb.sv
+        run: verilator --timing -cc -I./src -I./tests ./src/alu.sv --exe ./tests/alu_tb.sv
 
   #test:
   #  runs-on: ubuntu-latest
