@@ -22,8 +22,11 @@ jobs:
         uses: V0XNIHILI/install-verilator-action@v0.0.2
 
       - name: Test ${{ matrix.target }}
-        run: verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
-
+        run: | 
+          verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
+          cd obj_dir
+          make -j -f V${{ matrix.target }}.mk V${{ matrix.target }}
+          ./V${{ matrix.target }}
   #test:
   #  runs-on: ubuntu-latest
   #  needs: build
