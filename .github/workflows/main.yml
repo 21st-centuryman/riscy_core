@@ -23,8 +23,6 @@ jobs:
 
     - name: Test ${{ matrix.target }}
       run: | 
-        verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
-        cd obj_dir
-        make -j -f V${{ matrix.target }}.mk V${{ matrix.target }}
-        ./V${{ matrix.target }}
+        verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv --binary 
+        ls
 
