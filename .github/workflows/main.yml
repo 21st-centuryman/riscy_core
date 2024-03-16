@@ -9,36 +9,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        target: [alu, ctrl]
-        #target: [alu, ctrl, rf, ram, cpu]
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Install Verilator Action
         uses: V0XNIHILI/install-verilator-action@v0.0.2
 
-      - name: Test ${{ matrix.target }}
-        run: | 
-          verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
-          cd obj_dir
-          make -j -f V${{ matrix.target }}.mk V${{ matrix.target }}
-          ./V${{ matrix.target }}
-  #test:
-  #  runs-on: ubuntu-latest
-  #  needs: build
+  test:
+    runs-on: ubuntu-latest
+    needs: build
 
-  #  strategy:
-  #    matrix:
-  #      target: [alu]
-  #      #target: [alu, ctrl, rf, ram, cpu]
+    strategy:
+      matrix:
+        target: [alu]
+        #target: [alu, ctrl, rf, ram, cpu]
 
-  #  steps:
-  #    - name: Checkout code
-  #      uses: actions/checkout@v3
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-  #    - name: Test ${{ matrix.target }}
-  #      run: verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
+    - name: Test ${{ matrix.target }}
+      run: | 
+        verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv
+        cd obj_dir
+        make -j -f V${{ matrix.target }}.mk V${{ matrix.target }}
+        ./V${{ matrix.target }}
+
