@@ -21,7 +21,7 @@ module alu (
       default;
     endcase
   end
-  //assign z = (rs1 - rs2) == 0;
+  assign z = (rs1 - rs2) == 0;
 endmodule
 
 

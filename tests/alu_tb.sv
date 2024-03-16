@@ -31,7 +31,7 @@ module alu_tb ();
     a = 20;
     b = 30;
     #1
-    assert (out == (a + b))
+    assert (out == (a - b))
     else $error("ADD: is broken");
 
     #1 funct3 = 3'b000;  // SUB
