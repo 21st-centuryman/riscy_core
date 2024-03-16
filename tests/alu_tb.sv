@@ -21,6 +21,7 @@ module alu_tb ();
   end
 
   initial begin
+    $display("Starting simulation");
     $dumpfile("sim.vcd");
     $dumpvars(0, a, b, out, z, funct3, funct7);
     clk = 0;
@@ -109,5 +110,6 @@ module alu_tb ();
     //assert (z)
     //else $error("Zero flag is broken");
 
+    $finish;
   end
 endmodule
