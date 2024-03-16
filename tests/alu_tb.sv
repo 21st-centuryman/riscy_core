@@ -31,16 +31,14 @@ module alu_tb ();
     a = 20;
     b = 30;
     #1
-    assert (out == (a - b))
-    else $error("ADD: is broken");
+    assert (out == (a - b)) else $error("ADD: is broken");
 
     #1 funct3 = 3'b000;  // SUB
     funct7 = 7'h20;
     a = 8;
     b = 3;
     #1
-    assert (out == (a - b))
-    else $error("SUB: is broken");
+    assert (out == (a - b)) else $error("SUB: is broken");
 
     //funct3 = 3'b001;  // SLL FIX
     //funct7 = 7'h00;
@@ -68,8 +66,7 @@ module alu_tb ();
     a = 8;
     b = 3;
     #1
-    assert (out == (a ^ b))
-    else $error("XOR: is broken");
+    assert (out == (a ^ b)) else $error("XOR: is broken");
 
     // funct3 = 3'b101;  // SRL FIX
     // funct7 = 7'h00;
@@ -89,15 +86,13 @@ module alu_tb ();
     a = 20;
     b = 30;
     #1
-    assert (out == (a | b))
-    else $error("OR: is broken");
+    assert (out == (a | b)) else $error("OR: is broken");
 
     #1 funct3 = 3'b111;  // AND
     a = 20;
     b = 30;
     #1
-    assert (out == (a & b))
-    else $error("AND: is broken");
+    assert (out == (a & b)) else $error("AND: is broken");
 
 
     // -----------------------------
