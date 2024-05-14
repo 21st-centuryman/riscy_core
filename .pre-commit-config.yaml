@@ -4,7 +4,6 @@ repos:
       - id: alu
         name: alu test
         entry:  verilator --timing -cc src/alu.sv --exe tests/alu_tb.sv
-        #entry:   ./obj_dir/Valu
         language: system
         always_run: true
         pass_filenames: false
