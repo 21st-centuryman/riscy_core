@@ -45,9 +45,9 @@ module ctrl_tb ();
         ImmSrc == 2'b00 &&
         ALUSrc == 1 &&
         MemWrite == 0 &&
-        ResultSrc == 2'b01 &&
+        ResultSrc == 2'b11 &&
         PCSrc == 0 &&
-        ALUControl == 3'b001
+        ALUControl == 3'b000
       )
     else $error("r-type: is broken");
 
