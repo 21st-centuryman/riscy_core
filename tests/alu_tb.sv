@@ -4,7 +4,6 @@ module alu_tb ();
   logic [6:0] funct7;
   logic z;
 
-  reg status;
   reg clk;
 
   alu alu (

@@ -7,3 +7,9 @@ repos:
         language: system
         always_run: true
         pass_filenames: false
+      - id: ctrl
+        name: alu test
+        entry:  verilator --timing -cc src/ctrl.sv --exe tests/ctrl_tb.sv
+        language: system
+        always_run: true
+        pass_filenames: false

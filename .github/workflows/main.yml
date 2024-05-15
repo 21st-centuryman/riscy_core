@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        target: [alu]
+        target: [alu, ctrl]
         #target: [alu, ctrl, rf, ram, cpu]
 
     steps:
