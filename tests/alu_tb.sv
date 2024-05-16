@@ -17,7 +17,7 @@ module alu_tb ();
   );
 
   always begin
-    #1 clk = ~clk;
+    #1 clk <= ~clk;
   end
 
   initial begin
@@ -99,11 +99,12 @@ module alu_tb ();
     // FLAGS TO BE IMPLEMENTED LATER
     // -----------------------------
 
-    //funct3 = 3'b001;  // slt
-    //a = 20;
-    //b = 20;
-    //assert (z)
-    //else $error("Zero flag is broken");
+    funct3 = 3'b000;  // SUB
+    funct7 = 7'h20;
+    a = 20;
+    b = 20;
+    assert (z == 0)
+    else $error("Zero flag is broken");
 
     $finish;
   end
