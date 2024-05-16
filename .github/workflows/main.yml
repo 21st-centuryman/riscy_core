@@ -26,5 +26,5 @@ jobs:
         verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv --binary && ./obj_dir/V${{ matrix.target}}
     - name: Test 2 ${{ matrix.target }}
       run: | 
-        verilator -Wall --cc tests/${{ matrix.target }}.sv src/${{ matrix.target }}.sv && make -j -C obj_dir -f V${{ matrix.target }}.mk V${{ matrix.target }} && ./obj_dir/V${{ matrix.target}}
+        verilator -Wall --cc tests/${{ matrix.target }}_tb.sv src/${{ matrix.target }}.sv && make -j -C obj_dir -f V${{ matrix.target }}.mk V${{ matrix.target }} && ./obj_dir/V${{ matrix.target}}
 
