@@ -55,7 +55,7 @@ module ctrl_tb ();
     op = 7'b0000011;  // lw
     assert(
         RegWrite == 1 &&
-        ImmSrc == 2'b00 &&
+        ImmSrc == 2'b10 &&
         ALUSrc == 1 &&
         MemWrite == 0 &&
         ResultSrc == 2'b01 &&
