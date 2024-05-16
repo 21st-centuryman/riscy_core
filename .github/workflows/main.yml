@@ -3,7 +3,7 @@ name: Cpu test
 on:
   push:
     branches:
-      - main
+      - '**'  # Run on push events for all branches
 
 jobs:
   test:
