@@ -17,13 +17,6 @@ module ctrl (
 
 );
   reg [1:0] ALUOp;
-  alu_decorder alu_dec (
-      .ALUOp(ALUOp),
-      .op(op[5]),
-      .funct3(funct3),
-      .funct7(funct7),
-      .ALUControl(ALUControl)
-  );
 
   always @(posedge clk) begin  // main_decoder
     reg Branch, Jump;
@@ -89,28 +82,12 @@ module ctrl (
 
       default: ;
     endcase
-    PCSrc <= (Jump | (Branch & Zero));
-  end
-endmodule
-
-
-
-module alu_decorder (
-    // INPUTS
-    input [1:0] ALUOp,
-    input [2:0] funct3,
-    input op,
-    funct7,
-    // OUTPUTS
-    output reg [2:0] ALUControl
-);
-  always @(ALUOp) begin
     case (ALUOp)
       2'b00:   ALUControl <= 3'b000;  // add
       2'b01:   ALUControl <= 3'b001;  // sub
       2'b10: begin
         case (funct3)
-          3'b000:  ALUControl <= op && funct7 ? 3'b001 : 3'b000;  // sub : add
+          3'b000:  ALUControl <= op[5] && funct7 ? 3'b001 : 3'b000;  // sub : add
           3'b010:  ALUControl <= 3'b101;  // slt
           3'b110:  ALUControl <= 3'b110;  // or
           3'b111:  ALUControl <= 3'b010;  // and
@@ -119,5 +96,7 @@ module alu_decorder (
       end
       default: ;
     endcase
+
+    PCSrc <= (Jump | (Branch & Zero));
   end
 endmodule

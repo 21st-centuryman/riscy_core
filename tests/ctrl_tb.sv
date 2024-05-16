@@ -25,14 +25,13 @@ module ctrl_tb ();
   );
 
   always begin
-    #1 clk = ~clk;
+    #1 clk <= ~clk;
   end
 
 
   initial begin
     $dumpfile("sim.vcd");
-    $dumpvars(0, clk, op, funct3, funct7, ALUControl, PCSrc, ResultSrc, MemWrite, ALUSrc, ImmSrc,
-              RegWrite);
+    $dumpvars(0, clk, op, funct3, ALUControl, PCSrc, ResultSrc, MemWrite, ALUSrc, ImmSrc, RegWrite);
 
     Zero = 0;
 
@@ -105,8 +104,10 @@ module ctrl_tb ();
       )
     else $error("i-type alu 1: is broken");
 
-
-    $finish;
+    op = 7'b0010011;  // addi
+    funct3 = 3'b000;
+    funct7 = 1;
+    assert (ALUControl == 3'b000 && funct7 == 1) $finish;
 
   end
 endmodule

@@ -1,7 +1,7 @@
 module alu_tb ();
   logic [31:0] a, b, out;
   logic [2:0] funct3;
-  logic [6:0] funct7;
+  logic funct7;
   logic z;
 
   reg clk;
@@ -27,56 +27,56 @@ module alu_tb ();
     clk = 0;
 
     funct3 = 3'b000;  // ADD
-    funct7 = 7'h00;
+    funct7 = 0;
     a = 20;
     b = 30;
     assert (out == (a - b))
     else $error("ADD: is broken");
 
     funct3 = 3'b000;  // SUB
-    funct7 = 7'h20;
+    funct7 = 1;
     a = 8;
     b = 3;
     assert (out == (a - b))
     else $error("SUB: is broken");
 
     funct3 = 3'b001;  // SLL
-    funct7 = 7'h00;
+    funct7 = 0;
     a = 8;
     b = 3;
     assert (out == (a << b))
     else $error("SLL: is broken");
 
     funct3 = 3'b010;  // SLT
-    funct7 = 7'h00;
+    funct7 = 0;
     a = 8;
     b = 3;
     assert (out == (a < b ? 1 : 0))
     else $error("SLT: is broken");
 
     funct3 = 3'b010;  // SLTU
-    funct7 = 7'h00;
+    funct7 = 0;
     a = 8;
     b = 3;
     assert (out == (a < b ? 1 : 0))
     else $error("SLTU: is broken");
 
     funct3 = 3'b010;  // XOR
-    funct7 = 7'h00;
+    funct7 = 0;
     a = 8;
     b = 3;
     assert (out == (a ^ b))
     else $error("XOR: is broken");
 
     funct3 = 3'b101;  // SRL
-    funct7 = 7'h00;
+    funct7 = 0;
     a = 8;
     b = 3;
     assert (out == (a >> b))
     else $error("SRL: is broken");
 
     funct3 = 3'b101;  // SRA
-    funct7 = 7'h20;
+    funct7 = 1;
     a = 8;
     b = 3;
     assert (out == (a >> b))
@@ -100,7 +100,7 @@ module alu_tb ();
     // -----------------------------
 
     funct3 = 3'b000;  // SUB
-    funct7 = 7'h20;
+    funct7 = 1;
     a = 20;
     b = 20;
     assert (z == 0)
