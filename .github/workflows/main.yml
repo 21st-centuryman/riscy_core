@@ -22,11 +22,5 @@ jobs:
       uses: V0XNIHILI/install-verilator-action@v0.0.2
 
     - name: Test ${{ matrix.target }}
-      continue-on-error: true
       run: | 
-        verilator --timing --assert -Wall --trace -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv --binary && ./obj_dir/V${{ matrix.target}}
-    - name: Test 2 ${{ matrix.target }}
-      continue-on-error: true
-      run: | 
-        verilator --timing --assert -Wall --trace --cc tests/${{ matrix.target }}_tb.sv src/${{ matrix.target }}.sv && make -j -C obj_dir -f V${{ matrix.target }}.mk V${{ matrix.target }} && ./obj_dir/V${{ matrix.target}}
-
+        verilator --timing --clk --build --assert -Wall --trace -cc  --binary src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv  && ./obj_dir/V${{ matrix.target}}
