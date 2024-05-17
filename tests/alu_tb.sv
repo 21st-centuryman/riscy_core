@@ -30,7 +30,7 @@ module alu_tb ();
     funct7 = 0;
     a = 20;
     b = 30;
-    #1;
+    @(posedge clk);
     assert (out == (a + b))
     else $error("ADD: is broken");
 
@@ -38,6 +38,7 @@ module alu_tb ();
     funct7 = 1;
     a = 8;
     b = 3;
+    @(posedge clk);
     assert (out == (a - b))
     else $error("SUB: is broken");
 
@@ -45,6 +46,7 @@ module alu_tb ();
     funct7 = 0;
     a = 8;
     b = 3;
+    @(posedge clk);
     assert (out == (a << b))
     else $error("SLL: is broken");
 
@@ -52,6 +54,7 @@ module alu_tb ();
     funct7 = 0;
     a = 8;
     b = 3;
+    @(posedge clk);
     assert (out == (a < b ? 1 : 0))
     else $error("SLT: is broken");
 
@@ -59,6 +62,7 @@ module alu_tb ();
     funct7 = 0;
     a = 8;
     b = 3;
+    @(posedge clk);
     assert (out == (a < b ? 1 : 0))
     else $error("SLTU: is broken");
 
@@ -66,6 +70,7 @@ module alu_tb ();
     funct7 = 0;
     a = 8;
     b = 3;
+    @(posedge clk);
     assert (out == (a ^ b))
     else $error("XOR: is broken");
 
@@ -73,6 +78,7 @@ module alu_tb ();
     funct7 = 0;
     a = 8;
     b = 3;
+    @(posedge clk);
     assert (out == (a >> b))
     else $error("SRL: is broken");
 
@@ -80,18 +86,21 @@ module alu_tb ();
     funct7 = 1;
     a = 8;
     b = 3;
+    @(posedge clk);
     assert (out == (a >> b))
     else $error("SRA: is broken");
 
     funct3 = 3'b110;  // OR
     a = 20;
     b = 30;
+    @(posedge clk);
     assert (out == (a | b))
     else $error("OR: is broken");
 
     funct3 = 3'b111;  // AND
     a = 20;
     b = 30;
+    @(posedge clk);
     assert (out == (a & b))
     else $error("AND: is broken");
 
@@ -104,6 +113,7 @@ module alu_tb ();
     funct7 = 1;
     a = 20;
     b = 20;
+    @(posedge clk);
     assert (z == 0)
     else $error("Zero flag is broken");
 
