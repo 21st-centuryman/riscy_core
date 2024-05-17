@@ -23,4 +23,4 @@ jobs:
 
     - name: Test ${{ matrix.target }}
       run: | 
-        verilator --timing --clk --build --assert -Wall --trace -cc  --binary src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv  && ./obj_dir/V${{ matrix.target}}
+        verilator --timing --clk --build --assert -Wall --trace -cc  --binary --exe src/${{ matrix.target}}.sv  tests/${{ matrix.target }}_tb.sv  && ./obj_dir/V${{ matrix.target}}
