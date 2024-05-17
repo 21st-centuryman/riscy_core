@@ -31,6 +31,7 @@ module alu_tb ();
     a = 20;
     b = 30;
     @(posedge clk);
+		$display("out: %d", out);
     assert (out == (a + b))
     else $error("ADD: is broken");
 
