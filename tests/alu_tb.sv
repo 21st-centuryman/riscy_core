@@ -30,6 +30,7 @@ module alu_tb ();
     funct7 = 0;
     a = 20;
     b = 30;
+    #1;
     assert (out == (a + b))
     else $error("ADD: is broken");
 
