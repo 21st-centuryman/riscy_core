@@ -8,8 +8,8 @@ repos:
         always_run: true
         pass_filenames: false
       - id: ctrl
-        name: alu test
-        entry:  verilator --timing -cc -Wall src/ctrl.sv tests/ctrl_tb.sv
+        name: ctrl test
+        entry: verilator --timing --clk --build --assert -Wall --trace -cc --exe src/ctrl.sv tests/ctrl_tb.sv
         language: system
         always_run: true
         pass_filenames: false

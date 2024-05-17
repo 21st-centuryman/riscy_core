@@ -47,8 +47,8 @@ module ctrl (
         ALUSrc <= 0;
         MemWrite <= 0;
         ResultSrc <= 2'b00;
-        Branch = 0;
-        Jump   = 0;
+        Branch <= 0;
+        Jump <= 0;
         ALUOp <= 2'b10;
       end
 
