@@ -38,19 +38,8 @@ module ctrl_tb ();
     // -------------------------------
     //        MAIN DECORDER
     // -------------------------------
-    op   = 7'b0000011;  // r-type
-    #2;
-    assert(
-        RegWrite == 1 &&
-        MemWrite == 0 &&
-        ResultSrc == 2'b01 &&
-        PCSrc == 0 &&
-        ALUControl == 3'b000
-      )
-    else $error("r-type: is broken");
 
-
-    op = 7'b0000011;  // lw
+    op   = 7'b0000011;  // lw
     #2;
     assert(
         RegWrite == 1 &&
@@ -74,6 +63,17 @@ module ctrl_tb ();
         ALUControl == 3'b000
       )
     else $error("sw: is broken");
+
+    op = 7'b0000011;  // r-type
+    #2;
+    assert(
+        RegWrite == 1 &&
+        MemWrite == 0 &&
+        ResultSrc == 2'b01 &&
+        PCSrc == 0 &&
+        ALUControl == 3'b000
+      )
+    else $error("r-type: is broken");
 
     op   = 7'b1101111;  // jal
     Zero = 0;
