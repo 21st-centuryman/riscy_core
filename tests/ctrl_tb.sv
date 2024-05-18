@@ -39,6 +39,7 @@ module ctrl_tb ();
     //        MAIN DECORDER
     // -------------------------------
     op   = 7'b0000011;  // r-type
+    #2;
     assert(
         RegWrite == 1 &&
         ImmSrc == 2'b00 &&
@@ -52,6 +53,7 @@ module ctrl_tb ();
 
 
     op = 7'b0000011;  // lw
+    #2;
     assert(
         RegWrite == 1 &&
         ImmSrc == 2'b10 &&
@@ -64,6 +66,7 @@ module ctrl_tb ();
 
     op   = 7'b0100011;  // sw
     Zero = 0;
+    #2;
     assert(
         RegWrite == 0 &&
         ImmSrc == 2'b01 &&
@@ -76,11 +79,13 @@ module ctrl_tb ();
 
     op   = 7'b1101111;  // jal
     Zero = 0;
+    #2;
     assert (RegWrite == 1 && ImmSrc == 2'b11 && MemWrite == 0 && ResultSrc == 2'b10 && PCSrc == 1)
     else $error("jal: is broken");
 
     op   = 7'b1100011;  // beq
     Zero = 1;
+    #2;
     assert(
         RegWrite == 0 &&
         ImmSrc == 2'b10 &&
@@ -93,6 +98,7 @@ module ctrl_tb ();
 
     op = 7'b0010011;  // addi
     funct3 = 3'b000;
+    #2;
     assert(
         RegWrite == 1 &&
         ImmSrc == 2'b00 &&
