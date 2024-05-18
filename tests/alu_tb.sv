@@ -66,7 +66,7 @@ module alu_tb ();
     assert (out == (a < b ? 1 : 0))
     else $error("SLTU: is broken");
 
-    funct3 = 3'b010;  // XOR
+    funct3 = 3'b100;  // XOR
     funct7 = 0;
     a = 8;
     b = 3;
@@ -80,7 +80,6 @@ module alu_tb ();
     a = 8;
     b = 3;
     #2
-
     assert (out == (a >> b))
     else $error("SRL: is broken");
 
@@ -108,7 +107,7 @@ module alu_tb ();
 
 
     // -----------------------------
-    // FLAGS TO BE IMPLEMENTED LATER
+    // FLAGS (ONLY ZERO FOR NOW)
     // -----------------------------
 
     funct3 = 3'b000;  // SUB

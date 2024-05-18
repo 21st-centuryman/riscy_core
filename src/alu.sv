@@ -5,8 +5,9 @@ module alu (
     input [31:0] rs1,
     rs2,
     // OUTPUTS
-    output z,
-    output reg [31:0] rd
+    output reg [31:0] rd,
+    // FLAGS
+    output z
 );
   always_ff @(posedge clk) begin
     case (funct3)
