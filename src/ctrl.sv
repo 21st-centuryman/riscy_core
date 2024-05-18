@@ -52,15 +52,6 @@ module ctrl (
         ALUOp <= 2'b10;
       end
 
-      7'b1100011: begin  // beq
-        RegWrite <= 0;
-        ImmSrc <= 2'b10;
-        ALUSrc <= 0;
-        MemWrite <= 0;
-        Branch <= 1;
-        ALUOp <= 2'b01;
-        Jump <= 0;
-      end
       7'b0010011: begin  // i-type ALU
         RegWrite <= 1;
         ImmSrc <= 2'b00;
@@ -71,6 +62,17 @@ module ctrl (
         ALUOp <= 2'b10;
         Jump <= 0;
       end
+
+      7'b1100011: begin  // beq
+        RegWrite <= 0;
+        ImmSrc <= 2'b10;
+        ALUSrc <= 0;
+        MemWrite <= 0;
+        Branch <= 1;
+        ALUOp <= 2'b01;
+        Jump <= 0;
+      end
+
       7'b1101111: begin  // jal
         RegWrite <= 1;
         ImmSrc <= 2'b11;

@@ -62,6 +62,18 @@ module ctrl_tb ();
     assert (RegWrite == 1 && MemWrite == 0 && ResultSrc == 2'b01 && PCSrc == 0)
     else $error("r-type: is broken");
 
+    op = 7'b0010011;  // i-type
+    funct3 = 3'b000;
+    #2;
+    assert(
+        RegWrite == 1 &&
+        ImmSrc == 2'b00 &&
+        ALUSrc == 1 &&
+        MemWrite == 0 &&
+        ResultSrc == 2'b00 &&
+        ALUControl == 3'b000
+      )
+    else $error("i-type: is broken");
     op   = 7'b1101111;  // jal
     Zero = 0;
     #2;
@@ -74,18 +86,6 @@ module ctrl_tb ();
     assert (RegWrite == 0 && ImmSrc == 2'b10 && ALUSrc == 0 && MemWrite == 0)
     else $error("beq: is broken");
 
-    op = 7'b0010011;  // addi
-    funct3 = 3'b000;
-    #2;
-    assert(
-        RegWrite == 1 &&
-        ImmSrc == 2'b00 &&
-        ALUSrc == 1 &&
-        MemWrite == 0 &&
-        ResultSrc == 2'b00 &&
-        ALUControl == 3'b000
-      )
-    else $error("i-type alu 1: is broken");
 
     op = 7'b0010011;  // addi
     funct3 = 3'b000;
