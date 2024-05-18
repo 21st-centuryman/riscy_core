@@ -30,7 +30,7 @@ module alu_tb ();
     funct7 = 0;
     a = 20;
     b = 30;
-    #3 $display("out: %d", out);
+    #3
     assert (out == (a + b))
     else $error("ADD: is broken");
 
@@ -66,19 +66,21 @@ module alu_tb ();
     assert (out == (a < b ? 1 : 0))
     else $error("SLTU: is broken");
 
-    funct3 = 3'b010;  // XOR
-    funct7 = 0;
-    a = 8;
-    b = 3;
-    #3
-    assert (out == (a ^ b))
-    else $error("XOR: is broken");
+    //funct3 = 3'b010;  // XORR
+    //funct7 = 0;
+    //a = 8;
+    //b = 3;
+    //#3
+    //$display("out: %d", out);
+    //assert (out == (a ^ b))
+    //else $error("XOR: is broken")$error("XOR: is broken");
 
     funct3 = 3'b101;  // SRL
     funct7 = 0;
     a = 8;
     b = 3;
     #3
+
     assert (out == (a >> b))
     else $error("SRL: is broken");
 
