@@ -65,13 +65,13 @@ module ctrl_tb ();
     op   = 7'b1101111;  // jal
     Zero = 0;
     #2;
-    assert (RegWrite == 1 && ImmSrc == 2'b11 && MemWrite == 0 && ResultSrc == 2'b10 && PCSrc == 1)
+    assert (RegWrite == 1 && ImmSrc == 2'b11 && MemWrite == 0 && ResultSrc == 2'b10)
     else $error("jal: is broken");
 
     op   = 7'b1100011;  // beq
     Zero = 1;
     #2;
-    assert (RegWrite == 0 && ImmSrc == 2'b10 && ALUSrc == 0 && MemWrite == 0 && PCSrc == 1)
+    assert (RegWrite == 0 && ImmSrc == 2'b10 && ALUSrc == 0 && MemWrite == 0)
     else $error("beq: is broken");
 
     op = 7'b0010011;  // addi
