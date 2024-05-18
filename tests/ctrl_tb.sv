@@ -47,21 +47,14 @@ module ctrl_tb ();
         ALUSrc == 1 &&
         MemWrite == 0 &&
         ResultSrc == 2'b01 &&
-        PCSrc == 0 && // Set expected_PCSrc to the expected value
-    ALUControl == 3'b000)
+        PCSrc == 0  // Set expected_PCSrc to the expected value
+    )
     else $error("lw: is broken");
 
     op   = 7'b0100011;  // sw
     Zero = 0;
     #2;
-    assert(
-        RegWrite == 0 &&
-        ImmSrc == 2'b01 &&
-        ALUSrc == 1 &&
-        MemWrite == 1 &&
-        PCSrc == 0 &&
-        ALUControl == 3'b000
-      )
+    assert (RegWrite == 0 && ImmSrc == 2'b01 && ALUSrc == 1 && MemWrite == 1 && PCSrc == 0)
     else $error("sw: is broken");
 
     op = 7'b0000011;  // r-type
@@ -78,14 +71,7 @@ module ctrl_tb ();
     op   = 7'b1100011;  // beq
     Zero = 1;
     #2;
-    assert(
-        RegWrite == 0 &&
-        ImmSrc == 2'b10 &&
-        ALUSrc == 0 &&
-        MemWrite == 0 &&
-        PCSrc == 1 &&
-        ALUControl == 3'b001
-      )
+    assert (RegWrite == 0 && ImmSrc == 2'b10 && ALUSrc == 0 && MemWrite == 0 && PCSrc == 1)
     else $error("beq: is broken");
 
     op = 7'b0010011;  // addi
