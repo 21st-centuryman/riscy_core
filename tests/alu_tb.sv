@@ -30,12 +30,7 @@ module alu_tb ();
     funct7 = 0;
     a = 20;
     b = 30;
-<<<<<<< HEAD
-    @(posedge clk);
-		$display("out: %d", out);
-=======
-    #3
->>>>>>> b603a21 (Add: longer waits)
+    #3 $display("out: %d", out);
     assert (out == (a + b))
     else $error("ADD: is broken");
 
