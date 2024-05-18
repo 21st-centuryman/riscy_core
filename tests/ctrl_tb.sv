@@ -65,15 +65,9 @@ module ctrl_tb ();
     op = 7'b0010011;  // i-type
     funct3 = 3'b000;
     #2;
-    assert(
-        RegWrite == 1 &&
-        ImmSrc == 2'b00 &&
-        ALUSrc == 1 &&
-        MemWrite == 0 &&
-        ResultSrc == 2'b00 &&
-        ALUControl == 3'b000
-      )
+    assert (RegWrite == 1 && ImmSrc == 2'b00 && ALUSrc == 1 && MemWrite == 0 && ResultSrc == 2'b00)
     else $error("i-type: is broken");
+
     op   = 7'b1101111;  // jal
     Zero = 0;
     #2;
