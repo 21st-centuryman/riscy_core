@@ -82,7 +82,7 @@ module ctrl_tb ();
         ImmSrc == 2'b00 &&
         ALUSrc == 1 &&
         MemWrite == 0 &&
-        ResultSrc == 2'b10 &&
+        ResultSrc == 2'b00 &&
         ALUControl == 3'b000
       )
     else $error("i-type alu 1: is broken");
