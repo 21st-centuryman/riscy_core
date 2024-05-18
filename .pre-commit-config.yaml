@@ -3,13 +3,13 @@ repos:
     hooks:
       - id: alu
         name: alu test
-        entry:  verilator --timing -cc src/alu.sv --exe tests/alu_tb.sv
+        entry: verilator --timing --clk --build --assert -Wall --trace -cc --exe src/alu.sv tests/alu_tb.sv
         language: system
         always_run: true
         pass_filenames: false
       - id: ctrl
-        name: alu test
-        entry:  verilator --timing -cc src/ctrl.sv --exe tests/ctrl_tb.sv
+        name: ctrl test
+        entry: verilator --timing --clk --build --assert -Wall --trace -cc --exe src/ctrl.sv tests/ctrl_tb.sv
         language: system
         always_run: true
         pass_filenames: false

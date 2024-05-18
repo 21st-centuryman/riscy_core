@@ -3,7 +3,7 @@ name: Cpu test
 on:
   push:
     branches:
-      - main
+      - '**'  # Run on push events for all branches
 
 jobs:
   test:
@@ -23,6 +23,4 @@ jobs:
 
     - name: Test ${{ matrix.target }}
       run: | 
-        verilator --timing -cc src/${{ matrix.target}}.sv --exe tests/${{ matrix.target }}_tb.sv --binary 
-        cd obj_dir
-        ./V${{ matrix.target}}
+        verilator --timing --timescale 10ns/1ns --clk --build --assert -Wall --trace -cc --binary --exe src/${{ matrix.target }}.sv tests/${{ matrix.target }}_tb.sv && ./obj_dir/V${{ matrix.target }}
