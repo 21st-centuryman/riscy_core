@@ -66,14 +66,14 @@ module alu_tb ();
     assert (out == (a < b ? 1 : 0))
     else $error("SLTU: is broken");
 
-    //funct3 = 3'b010;  // XORR
-    //funct7 = 0;
-    //a = 8;
-    //b = 3;
-    //#2
-    //$display("out: %d", out);
-    //assert (out == (a ^ b))
-    //else $error("XOR: is broken")$error("XOR: is broken");
+    funct3 = 3'b010;  // XOR
+    funct7 = 0;
+    a = 8;
+    b = 3;
+    #2
+    $display("out: %d", out);
+    assert (out == (a ^ b))
+    else $error("XOR: is broken");
 
     funct3 = 3'b101;  // SRL
     funct7 = 0;
