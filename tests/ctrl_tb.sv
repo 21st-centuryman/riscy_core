@@ -87,8 +87,9 @@ module ctrl_tb ();
     #2;
     assert (
       RegWrite == 1 &&
+      ALUSrc == 0 &&
       MemWrite == 0 &&
-      ResultSrc == 2'b01 &&
+      ResultSrc == 2'b00 &&
       PCSrc == 0 &&
       ALUControl == 3'b000
       )
@@ -100,8 +101,9 @@ module ctrl_tb ();
     #2;
     assert (
       RegWrite == 1 &&
+      ALUSrc == 0 &&
       MemWrite == 0 &&
-      ResultSrc == 2'b01 &&
+      ResultSrc == 2'b00 &&
       PCSrc == 0 &&
       ALUControl == 3'b001
       )
