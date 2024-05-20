@@ -64,6 +64,7 @@ module ctrl_tb ();
         ALUSrc == 1 &&
         MemWrite == 0 &&
         ResultSrc == 2'b01 &&
+        ALUControl == 3'b000 &&
         PCSrc == 0  // Set expected_PCSrc to the expected value
     )
     else $error("lw: is broken");
@@ -71,13 +72,41 @@ module ctrl_tb ();
     op   = 7'b0100011;  // sw
     Zero = 0;
     #2;
-    assert (RegWrite == 0 && ImmSrc == 2'b01 && ALUSrc == 1 && MemWrite == 1 && PCSrc == 0)
+    assert (
+      RegWrite == 0 &&
+      ImmSrc == 2'b01 &&
+      ALUSrc == 1 &&
+      MemWrite == 1 &&
+      ALUControl == 3'b000 &&
+      PCSrc == 0)
     else $error("sw: is broken");
 
-    op = 7'b0000011;  // r-type
+    op = 7'b0110011;  // R add
+    funct3 = 3'b000;
+    funct7 = 0;
     #2;
-    assert (RegWrite == 1 && MemWrite == 0 && ResultSrc == 2'b01 && PCSrc == 0)
-    else $error("r-type: is broken");
+    assert (
+      RegWrite == 1 &&
+      MemWrite == 0 &&
+      ResultSrc == 2'b01 &&
+      PCSrc == 0 &&
+      ALUControl == 3'b000
+      )
+    else $error("R ADD: is broken");
+
+    op = 7'b0110011;  // R sub
+    funct3 = 3'b000;
+    funct7 = 1;
+    #2;
+    assert (
+      RegWrite == 1 &&
+      MemWrite == 0 &&
+      ResultSrc == 2'b01 &&
+      PCSrc == 0 &&
+      ALUControl == 3'b001
+      )
+    else $error("R ADD: is broken");
+
 
     op = 7'b0010011;  // i-type
     funct3 = 3'b000;
