@@ -4,8 +4,23 @@ module ctrl_tb ();
   logic [1:0] ImmSrc, ResultSrc;
   logic funct7, Zero;
   logic PCSrc, MemWrite, ALUSrc, RegWrite;
+  logic [31:0] a, b, out;
 
   reg clk;
+
+  alu alu (
+      // INPUTS
+      .clk(clk),
+      .funct3(funct3),
+      .funct7(funct7),
+      .rs1(a),
+      .rs2(b),
+      // OUTPUTS
+      .rd(out),
+      // FLAGS
+      .z(Zero)
+  );
+
 
   ctrl ctrl (
       // INPUTS
@@ -34,12 +49,15 @@ module ctrl_tb ();
     $dumpvars(0, clk, op, funct3, ALUControl, PCSrc, ResultSrc, MemWrite, ALUSrc, ImmSrc, RegWrite);
 
     Zero = 0;
+    a = 0;
+    b = 0;
+    assert (out == 0);
 
     // -------------------------------
     //        MAIN DECORDER
     // -------------------------------
 
-    op   = 7'b0000011;  // lw
+    op = 7'b0000011;  // lw
     #2;
     assert(
         RegWrite == 1 &&

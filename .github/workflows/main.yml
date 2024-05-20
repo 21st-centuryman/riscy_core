@@ -9,11 +9,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        target: [alu, ctrl]
-        #target: [alu, ctrl, rf, ram, cpu]
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -21,6 +16,12 @@ jobs:
     - name: Install Verilator Action
       uses: V0XNIHILI/install-verilator-action@v0.0.2
 
-    - name: Test ${{ matrix.target }}
+    - name: Test alu
       run: | 
-        verilator --timing --timescale 10ns/1ns --clk --build --assert -Wall --trace -cc --binary --exe src/${{ matrix.target }}.sv tests/${{ matrix.target }}_tb.sv && ./obj_dir/V${{ matrix.target }}
+        verilator --timing --timescale 10ns/1ns --clk --build --assert -Wall --trace -cc  --binary --exe src/alu.sv tests/alu_tb.sv  | 
+        && ./obj_dir/Valu
+
+    - name: Test ctrl
+      run: | 
+         verilator --timing  --timescale 10ns/1ns --clk --build --assert -Wall --trace -cc  --binary --exe  src/alu.sv src/ctrl.sv tests/ctrl_tb.sv  |
+         && ./obj_dir/Vctrl
