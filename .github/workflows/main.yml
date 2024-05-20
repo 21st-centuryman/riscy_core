@@ -22,4 +22,4 @@ jobs:
 
     - name: Test ctrl
       run: | 
-         verilator --timing  --timescale 10ns/1ns --clk --build --assert -Wall --trace  --binary --exe src/alu.sv src/ctrl.sv tests/ctrl_tb.sv && ./obj_dir/Vctrl
+         verilator --timing  --timescale 10ns/1ns --clk --build --assert -Wall --trace  --binary --exe src/ctrl.sv t src/alu.sv ests/ctrl_tb.sv && ./obj_dir/Vctrl
