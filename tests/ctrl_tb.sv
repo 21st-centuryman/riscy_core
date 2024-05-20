@@ -107,7 +107,48 @@ module ctrl_tb ();
       PCSrc == 0 &&
       ALUControl == 3'b001
       )
-    else $error("R ADD: is broken");
+    else $error("R SUB: is broken");
+
+    op = 7'b0110011;  // R slt
+    funct3 = 3'b010;
+    #2;
+    assert (
+      RegWrite == 1 &&
+      ALUSrc == 0 &&
+      MemWrite == 0 &&
+      ResultSrc == 2'b00 &&
+      PCSrc == 0 &&
+      ALUControl == 3'b101
+      )
+    else $error("R SLT: is broken");
+
+    op = 7'b0110011;  // R sub
+    funct3 = 3'b000;
+    funct7 = 1;
+    #2;
+    assert (
+      RegWrite == 1 &&
+      ALUSrc == 0 &&
+      MemWrite == 0 &&
+      ResultSrc == 2'b00 &&
+      PCSrc == 0 &&
+      ALUControl == 3'b001
+      )
+    else $error("R SUB: is broken");
+
+    op = 7'b0110011;  // R sub
+    funct3 = 3'b000;
+    funct7 = 1;
+    #2;
+    assert (
+      RegWrite == 1 &&
+      ALUSrc == 0 &&
+      MemWrite == 0 &&
+      ResultSrc == 2'b00 &&
+      PCSrc == 0 &&
+      ALUControl == 3'b001
+      )
+    else $error("R SUB: is broken");
 
 
     op = 7'b0010011;  // i-type
