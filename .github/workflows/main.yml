@@ -18,8 +18,8 @@ jobs:
 
     - name: Test alu
       run: | 
-        verilator --exe --timing --timescale 10ns/1ns --assert -Wall --trace --binary src/alu.sv tests/alu_tb.sv  && ./obj_dir/Valu
+        verilator --exe --timing --build --timescale 10ns/1ns --assert -Wall --trace --binary src/alu.sv tests/alu_tb.sv  && ./obj_dir/Valu
 
     - name: Test ctrl
       run: | 
-        verilator --exe --timing --timescale 10ns/1ns --assert -Wall --trace  --binary src/ctrl.sv  src/alu.sv tests/ctrl_tb.sv && ./obj_dir/Vctrl
+        verilator --exe --timing --build --timescale 10ns/1ns --assert -Wall --trace  --binary src/ctrl.sv  src/alu.sv tests/ctrl_tb.sv && ./obj_dir/Vctrl
