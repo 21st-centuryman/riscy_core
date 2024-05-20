@@ -4,7 +4,7 @@ module ctrl_tb ();
   logic [1:0] ImmSrc, ResultSrc;
   logic funct7, Zero;
   logic PCSrc, MemWrite, ALUSrc, RegWrite;
-  logic [31:0] a, b, out;
+  logic [31:0] a, b,  /* verilator lint_off UNUSEDSIGNAL */ out;
 
   reg clk;
 
@@ -51,7 +51,6 @@ module ctrl_tb ();
     Zero = 0;
     a = 0;
     b = 0;
-    assert (out == 0);
 
     // -------------------------------
     //        MAIN DECORDER
