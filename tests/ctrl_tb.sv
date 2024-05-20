@@ -134,5 +134,6 @@ module ctrl_tb ();
     funct7 = 1;
     assert (ALUControl == 3'b000 && funct7 == 1) $finish;
 
+    $finish;
   end
 endmodule
