@@ -23,7 +23,7 @@ module alu (
       4'b1101: rd <= (rs1 >>> rs2);  // SRA
       4'b0110: rd <= (rs1 | rs2);  // OR
       4'b0111: rd <= (rs1 & rs2);  // AND
-      default;
+      default: rd <= 'x;
     endcase
   end
   assign z = (rs1 - rs2) == 0;
