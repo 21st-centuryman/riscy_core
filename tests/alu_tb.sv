@@ -21,10 +21,8 @@ module alu_tb ();
   end
 
   initial begin
-    $display("Starting simulation");
     $dumpfile("sim.vcd");
     $dumpvars(0, a, b, out, z, funct3, funct7);
-    clk = 0;
 
     funct3 = 3'b000;  // ADD
     funct7 = 0;
@@ -70,8 +68,7 @@ module alu_tb ();
     funct7 = 0;
     a = 8;
     b = 3;
-    #2
-    $display("out: %d", out);
+    #2 $display("out: %d", out);
     assert (out == (a ^ b))
     else $error("XOR: is broken");
 

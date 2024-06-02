@@ -1,3 +1,9 @@
+/*
+ControlUnit: Decodes the instruction and generates control signals for the rest of the CPU.
+
+
+  NEED TO FIX IT, I should stop following the book guide since this is not accurate to the ALU I followed based on the RISC-V documentation
+*/
 module ctrl (
     // INPUTS
     input clk,
@@ -88,7 +94,7 @@ module ctrl (
       2'b00:   ALUControl <= 3'b000;  // add
       2'b01:   ALUControl <= 3'b001;  // sub
       2'b10: begin
-        case (funct3)
+        case (funct3)  // THIS IS NOT COMPADIBLE WITH ALU, WE NEED TO FIX IT
           3'b000:  ALUControl <= op[5] && funct7 ? 3'b001 : 3'b000;  // sub : add
           3'b010:  ALUControl <= 3'b101;  // slt
           3'b110:  ALUControl <= 3'b110;  // or
