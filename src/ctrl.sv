@@ -1,110 +1,81 @@
 /*
 ControlUnit: Decodes the instruction and generates control signals for the rest of the CPU.
-
-
-  NEED TO FIX IT, I should stop following the book guide since this is not accurate to the ALU I followed based on the RISC-V documentation
 */
 module ctrl (
     // INPUTS
     input clk,
-    input [6:0] op,
-    input [2:0] funct3,
-    input funct7,
-    input Zero,
+    input [31:0] inst,
     // OUTPUTS
-    output reg PCSrc,
-    MemWrite,
-    ALUSrc,
-    RegWrite,
-    output reg [1:0] ImmSrc,
-    ResultSrc,
-    output reg [2:0] ALUControl
-
-
+    output reg [2:0] funct3,
+    output reg [5:0] funct7,
+    output reg [3:0] rs1,
+    output reg [3:0] rs2,
+    output reg [3:0] rd,
+    output reg [19:0] imm
 );
-  reg [1:0] ALUOp;
 
   always @(posedge clk) begin  // main_decoder
-    reg Branch, Jump;
-    case (op)
-
-      7'b0000011: begin  // lw
-        RegWrite <= 1;
-        ImmSrc <= 2'b00;
-        ALUSrc <= 1;
-        MemWrite <= 0;
-        ResultSrc <= 2'b01;
-        Branch <= 0;
-        ALUOp <= 2'b00;
-        Jump <= 0;
-      end
-      7'b0100011: begin  // sw
-        RegWrite <= 0;
-        ImmSrc <= 2'b01;
-        ALUSrc <= 1;
-        MemWrite <= 1;
-        Branch <= 0;
-        ALUOp <= 2'b00;
-        Jump <= 0;
-      end
+    case (inst[6:0])
 
       7'b0110011: begin  // r-type
-        RegWrite <= 1;
-        ALUSrc <= 0;
-        MemWrite <= 0;
-        ResultSrc <= 2'b00;
-        Branch <= 0;
-        Jump <= 0;
-        ALUOp <= 2'b10;
+        funct7 <= inst[31:25];
+        rs2 <= inst[24:20];
+        rs1 <= inst[19:15];
+        funct3 <= inst[14:12];
+        rd <= inst[11:7];
+        imm <= 'x;
       end
 
-      7'b0010011: begin  // i-type ALU
-        RegWrite <= 1;
-        ImmSrc <= 2'b00;
-        ALUSrc <= 1;
-        MemWrite <= 0;
-        ResultSrc <= 2'b00;
-        Branch <= 0;
-        ALUOp <= 2'b10;
-        Jump <= 0;
+      7'b0010011: begin  // i-type
+        imm <= inst[31:20];  // Fix imm instruction, ie fix the benchmark and testing
+        rs1 <= inst[19:15];
+        funct3 <= inst[14:12];
+        rd <= inst[11:7];
+        rs2 <= 'x;
+        funct7 <= 'x;
       end
 
-      7'b1100011: begin  // beq
-        RegWrite <= 0;
-        ImmSrc <= 2'b10;
-        ALUSrc <= 0;
-        MemWrite <= 0;
-        Branch <= 1;
-        ALUOp <= 2'b01;
-        Jump <= 0;
+      7'b0100011: begin  // s-type
+        imm[11:5] <= inst[31:25];
+        rs2 <= inst[34:20];
+        rs1 <= inst[19:15];
+        funct3 <= inst[14:12];
+        imm[4:0] <= inst[11:7];
+        imm[19:11] <= 'x;
+        rd <= 'x;
+        funct7 <= 'x;
       end
 
-      7'b1101111: begin  // jal
-        RegWrite <= 1;
-        ImmSrc <= 2'b11;
-        MemWrite <= 0;
-        ResultSrc <= 2'b10;
-        Branch <= 0;
-        Jump <= 1;
+      7'b1100011: begin  // b-type
+        imm[11:5] <= inst[31:25];
+        rs2 <= inst[34:20];
+        rs1 <= inst[19:15];
+        funct3 <= inst[14:12];
+        imm[4:0] <= inst[11:7];
+        imm[19:11] <= 'x;
+        rd <= 'x;
+        funct7 <= 'x;
+      end
+
+      7'b1101111: begin  // u-type
+        imm <= inst[31:12];
+        rd <= inst[11:7];
+        funct3 <= 'x;
+        rs1 <= 'x;
+        rs2 <= 'x;
+        funct7 <= 'x;
+      end
+
+      7'b1101111: begin  // j-type
+        imm <= inst[31:12];
+        rd <= inst[11:7];
+        funct3 <= 'x;
+        rs1 <= 'x;
+        rs2 <= 'x;
+        funct7 <= 'x;
       end
 
       default: ;
     endcase
-    case (ALUOp)
-      2'b00:   ALUControl <= 3'b000;  // add
-      2'b01:   ALUControl <= 3'b001;  // sub
-      2'b10: begin
-        case (funct3)  // THIS IS NOT COMPADIBLE WITH ALU, WE NEED TO FIX IT
-          3'b000:  ALUControl <= op[5] && funct7 ? 3'b001 : 3'b000;  // sub : add
-          3'b010:  ALUControl <= 3'b101;  // slt
-          3'b110:  ALUControl <= 3'b110;  // or
-          3'b111:  ALUControl <= 3'b010;  // and
-          default: ;
-        endcase
-      end
-      default: ;
-    endcase
-
-    PCSrc <= (Jump | (Branch & Zero));
   end
 endmodule

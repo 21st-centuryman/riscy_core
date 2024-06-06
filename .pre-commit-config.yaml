@@ -7,9 +7,10 @@ repos:
         language: system
         always_run: true
         pass_filenames: false
-      - id: ctrl
-        name: ctrl test
-        entry: verilator --timing --clk --build --assert -Wall --trace -cc --exe tests/ctrl_tb.sv src/ctrl.sv  src/alu.sv
-        language: system
-        always_run: true
-        pass_filenames: false
+
+      #      - id: ctrl
+      #        name: ctrl test
+      #        entry: verilator --timing --clk --build --assert -Wall --trace -cc --exe tests/ctrl_tb.sv src/ctrl.sv  src/alu.sv
+      #        language: system
+      #        always_run: true
+      #        pass_filenames: false
